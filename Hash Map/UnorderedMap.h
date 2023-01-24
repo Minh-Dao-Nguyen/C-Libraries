@@ -67,14 +67,14 @@ public:
         HashNode *_ptr;
 
         explicit basic_iterator(UnorderedMap const *map, HashNode *ptr) noexcept
-        { /* TODO */
+        { 
             _map = map;
             _ptr = ptr;
         }
 
     public:
         basic_iterator()
-        { /* TODO */
+        {
             _map = nullptr; 
             _ptr = nullptr;
         };
@@ -85,15 +85,15 @@ public:
         basic_iterator &operator=(const basic_iterator &) = default;
         basic_iterator &operator=(basic_iterator &&) = default;
         reference operator*() const
-        { /* TODO */
+        {
             return _ptr->val;
         }
         pointer operator->() const
-        { /* TODO */
+        { 
             return &(_ptr->val);
         }
         basic_iterator &operator++()
-        { /* TODO */
+        { 
             if (_ptr->next)
             {
                 _ptr = _ptr->next;
@@ -116,7 +116,7 @@ public:
             return *this;
         }
         basic_iterator operator++(int)
-        { /* TODO */
+        { 
             auto temp = *this;
             if (_ptr->next)
             {
@@ -138,11 +138,11 @@ public:
             return temp;
         }
         bool operator==(const basic_iterator &other) const noexcept
-        { /* TODO */
+        { 
             return _ptr == other._ptr;
         }
         bool operator!=(const basic_iterator &other) const noexcept
-        { /* TODO */
+        { 
             return _ptr != other._ptr;
         }
     };
@@ -166,13 +166,13 @@ public:
         HashNode *_node;
 
         explicit local_iterator(HashNode *node) noexcept
-        { /* TODO */
+        { 
             _node = node;
         }
 
     public:
         local_iterator()
-        { /* TODO */
+        { 
             _node = nullptr;
         }
 
@@ -182,51 +182,51 @@ public:
         local_iterator &operator=(const local_iterator &) = default;
         local_iterator &operator=(local_iterator &&) = default;
         reference operator*() const
-        { /* TODO */
+        {
             return _node->val;
         }
         pointer operator->() const
-        { /* TODO */
+        { 
             return &(_node->val);
         }
         local_iterator &operator++()
-        { /* TODO */
+        { 
             _node = _node->next;
             return *this;
         }
         local_iterator operator++(int)
-        { /* TODO */
+        { 
             auto temp = *this;
             _node = _node->next;
             return temp;
         }
 
         bool operator==(const local_iterator &other) const noexcept
-        { /* TODO */
+        { 
             return _node == other._node;
         }
         bool operator!=(const local_iterator &other) const noexcept
-        { /* TODO */
+        { 
             return _node != other._node;
         }
     };
 
 private:
     size_type _bucket(size_t code) const
-    { /* TODO */
+    { 
         return _range_hash(code, _bucket_count);
     }
     size_type _bucket(const Key &key) const
-    { /* TODO */
+    { 
         return _bucket(_hash(key));
     }
     size_type _bucket(const value_type &val) const
-    { /* TODO */
+    {
         return _bucket(val.first);
     }
 
     HashNode *&_find(size_type code, size_type bucket, const Key &key)
-    { /* TODO */
+    {
         HashNode **temp = &_buckets[bucket];
         while (*temp)
         {
@@ -240,12 +240,12 @@ private:
     }
 
     HashNode *&_find(const Key &key)
-    { /* TODO */
+    {
         return _find(_hash(key), _bucket(key), key);
     }
 
     HashNode *_insert_into_bucket(size_type bucket, value_type &&value)
-    { /* TODO */
+    { 
         HashNode*& temp = _buckets[bucket];
         HashNode *newNode = new HashNode(std::move(value), temp);
         temp = newNode;
@@ -260,13 +260,13 @@ private:
     }
 
     void _move_content(UnorderedMap &src, UnorderedMap &dst)
-    { /* TODO */
+    {
     }
 
 public:
     explicit UnorderedMap(size_type bucket_count, const Hash &hash = Hash{},
                           const key_equal &equal = key_equal{})
-    { /* TODO */
+    { 
         _bucket_count = next_greater_prime(bucket_count);
         _buckets = new HashNode *[_bucket_count] {};
         _head = nullptr;
@@ -276,14 +276,14 @@ public:
     }
 
     ~UnorderedMap()
-    { /* TODO */
+    { 
         clear();
         _bucket_count = 0;
         delete[] _buckets;
     }
 
     UnorderedMap(const UnorderedMap &other)
-    { /* TODO */
+    {
         _bucket_count = other._bucket_count;
         _hash = other._hash;
         _equal = other._equal;
@@ -298,7 +298,7 @@ public:
     }
 
     UnorderedMap(UnorderedMap &&other)
-    { /* TODO */
+    {
         _bucket_count = other._bucket_count;
         _buckets = other._buckets; 
         _head = other._head; 
@@ -312,7 +312,7 @@ public:
     }
 
     UnorderedMap &operator=(const UnorderedMap &other)
-    { /* TODO */
+    {
         if(this == &other){
             return *this; 
         }
@@ -333,7 +333,7 @@ public:
     }
 
     UnorderedMap &operator=(UnorderedMap &&other)
-    { /* TODO */
+    { 
         if(this == &other){
             return *this; 
         }
@@ -354,7 +354,7 @@ public:
     }
 
     void clear() noexcept
-    { /* TODO */
+    { 
         for (size_type i = 0; i < _bucket_count; i++)
         {
             if (_buckets[i])
@@ -374,49 +374,49 @@ public:
     }
 
     size_type size() const noexcept
-    { /* TODO */
+    { 
         return _size;
     }
 
     bool empty() const noexcept
-    { /* TODO */
+    { 
         return (_size == 0);
     }
 
     size_type bucket_count() const noexcept
-    { /* TODO */
+    {
         return _bucket_count;
     }
 
     iterator begin()
-    { /* TODO */
+    { 
         return iterator(this, _head);
     }
     iterator end()
-    { /* TODO */
+    {
         return iterator(this, nullptr);
     }
 
     const_iterator cbegin() const
-    { /* TODO */
+    { 
         return const_iterator(this, _head);
     };
     const_iterator cend() const
-    { /* TODO */
+    { 
         return const_iterator(this, nullptr);
     };
 
     local_iterator begin(size_type n)
-    { /* TODO */
+    { 
         return local_iterator(_buckets[n]);
     }
     local_iterator end(size_type n)
-    { /* TODO */
+    {
         return local_iterator(nullptr);
     }
 
     size_type bucket_size(size_type n)
-    { /* TODO */
+    { 
         size_type size = 0;
         HashNode *ptr = _buckets[n];
         while (ptr)
@@ -428,17 +428,17 @@ public:
     }
 
     float load_factor() const
-    { /* TODO */
+    {
         return ((float)_size) / _bucket_count;
     }
 
     size_type bucket(const Key &key) const
-    { /* TODO */
+    { 
         return _bucket(key);
     }
 
     std::pair<iterator, bool> insert(value_type &&value)
-    { /* TODO */
+    { 
         HashNode * findNode = _find(value.first);
         if (findNode)
         {
@@ -450,7 +450,7 @@ public:
     }
 
     std::pair<iterator, bool> insert(const value_type &value)
-    { /* TODO */
+    { 
         HashNode *findNode = _find(value.first);
         if (findNode)
         {
@@ -463,12 +463,12 @@ public:
     }
 
     iterator find(const Key &key)
-    { /* TODO */
+    { 
         return iterator(this, _find(key));
     }
 
     T &operator[](const Key &key)
-    { /* TODO */
+    { 
         HashNode* Node = _find(key); 
         if(Node){
             return Node->val.second; 
@@ -481,7 +481,7 @@ public:
     }
 
     iterator erase(iterator pos)
-    { /* TODO */
+    { 
         HashNode*& findNode = _find((*pos).first); 
         if(findNode){
             iterator it(this, findNode);
@@ -502,7 +502,7 @@ public:
     }
 
     size_type erase(const Key &key)
-    { /* TODO */
+    { 
         HashNode* findNode = _find(key);
         if(findNode){
             iterator it(this, findNode);
