@@ -150,6 +150,10 @@ public class main extends JFrame implements ActionListener
         //centerPanel.add(scrollFrame); 
          */
         /****************/
+        JScrollPane scrollFrame = new JScrollPane(centerPanel);
+        centerPanel.setAutoscrolls(true);
+        scrollFrame.getVerticalScrollBar().setUnitIncrement(16);
+        this.add(scrollFrame);
 
         this.setVisible(true);
     }
@@ -169,6 +173,7 @@ public class main extends JFrame implements ActionListener
         }
         //Box selection
         else if(command.equals("comboBoxChanged")){
+            centerPanel.removeAll();
             String selection = dataStructures_Box.getSelectedItem().toString();
             DataDisplay dataDisplayOBJ = new DataDisplay();
             String data = dataDisplayOBJ.data(selection);
@@ -177,10 +182,6 @@ public class main extends JFrame implements ActionListener
             //JLabel dataPrint= new JLabel(data);
             JPanel dataPanel = new JPanel(new FlowLayout());
             centerPanel.add(label);
-            JScrollPane scrollFrame = new JScrollPane(centerPanel);
-            centerPanel.setAutoscrolls(true);
-            scrollFrame.getVerticalScrollBar().setUnitIncrement(16);
-            this.add(scrollFrame);
             this.setVisible(true);
         }
     }
